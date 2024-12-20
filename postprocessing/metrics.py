@@ -87,7 +87,7 @@ def single_roc_curve(model, dataset, sample, train_val_test='testing', device='c
         plt.ylabel('True Positive Rate [-]', fontsize=14)
         plt.xticks(fontsize=12)
         plt.yticks(fontsize=12)
-        plt.title(f'Receiver Operating Characteristic curve\n for {train_val_test} sample {sample}', fontsize=16)
+        plt.title(f'Receiver Operating Characteristic curve/n for {train_val_test} sample {sample}', fontsize=16)
         plt.legend(loc="lower right", fontsize=12)
         plt.show()
 
@@ -144,12 +144,12 @@ def get_total_roc_curve(model, dataset, train_val_test='testing', model_type='mi
     plt.ylabel('True Positive Rate [-]', fontsize=18)
     plt.xticks(fontsize=16)
     plt.yticks(fontsize=16)
-    # plt.title(f'Average Receiver Operating Characteristic curve\n for {train_val_test} dataset with {model_type} model', fontsize=16)
+    # plt.title(f'Average Receiver Operating Characteristic curve/n for {train_val_test} dataset with {model_type} model', fontsize=16)
     plt.legend(bbox_to_anchor=(1.01,0.25), fontsize=16)
     plt.tight_layout()
     
     if save_img:
-        plt.savefig(rf'images\report\4_results\roc_{train_val_test}_{model_type}_{spatial_temporal}.png', bbox_inches='tight', dpi=1000)
+        plt.savefig(rf'images/report/4_results/roc_{train_val_test}_{model_type}_{spatial_temporal}.png', bbox_inches='tight', dpi=1000)
         plt.show()
         plt.close()  # close the figure to free memory
     else:
@@ -209,7 +209,7 @@ def single_pr_curve(model, dataset, sample, train_val_test='testing', device='cu
         plt.ylabel('Precision [-]', fontsize=14)
         plt.xticks(fontsize=12)
         plt.yticks(fontsize=12)
-        plt.title(f'Precision Recall curve\n for {train_val_test} sample {sample}', fontsize=16)
+        plt.title(f'Precision Recall curve/n for {train_val_test} sample {sample}', fontsize=16)
         plt.legend(loc="upper right", fontsize=12)
         plt.show()
  
@@ -270,16 +270,16 @@ def get_total_pr_curve(model, dataset, train_val_test='testing', model_type= 'mi
     plt.ylabel('Precision [-]', fontsize=18)
     plt.xticks(fontsize=16)
     plt.yticks(fontsize=16)
-    # plt.title(f'Average Precision Recall curve for {train_val_test} dataset\n' + 
+    # plt.title(f'Average Precision Recall curve for {train_val_test} dataset/n' + 
     #           rf'with {model_type} model and $w_{{thr}}$ = {avg_best_thr:.3f}', fontsize=16)
     # # add note on optimal threshold
     # formatted_best_thr = f'{avg_best_thr:.3f}'
-    # plt.annotate(f'Water threshold for\nmax F1-score: {formatted_best_thr}', xy=(0.505,0.75), fontsize=16, 
+    # plt.annotate(f'Water threshold for/nmax F1-score: {formatted_best_thr}', xy=(0.505,0.75), fontsize=16, 
     #              ha='center', bbox=dict(boxstyle="round,pad=0.3", edgecolor="black", facecolor="lightgray"))
     plt.legend(bbox_to_anchor=(0.9,0.145), fontsize=16)
     
     if save_img:
-        plt.savefig(rf'images\report\4_results\pr_{train_val_test}_{model_type}_{spatial_temporal}.png', bbox_inches='tight', dpi=1000)
+        plt.savefig(rf'images/report/4_results/pr_{train_val_test}_{model_type}_{spatial_temporal}.png', bbox_inches='tight', dpi=1000)
         plt.show()
         plt.close()  # close the figure to free memory
     else:
@@ -341,7 +341,7 @@ def balanced_accuracy(model, dataset, sample, train_val_test='testing', device='
         plt.ylabel('Balanced accuracy [-]', fontsize=14)
         plt.xticks(fontsize=12)
         plt.yticks(fontsize=12) 
-        plt.title(f'Balanced Accuracy curve\n for {train_val_test} sample {sample}', fontsize=16)
+        plt.title(f'Balanced Accuracy curve/n for {train_val_test} sample {sample}', fontsize=16)
         plt.legend(loc="lower right", fontsize=12)
         plt.show()
 
@@ -393,11 +393,11 @@ def get_total_balanced_accuracy(model, dataset, train_val_test='testing', model_
     plt.ylabel('Precision [-]', fontsize=14)
     plt.xticks(fontsize=12)
     plt.yticks(fontsize=12)
-    # plt.title(f'Average Balanced Accuracy curve\n for {train_val_test} dataset', fontsize=16)
+    # plt.title(f'Average Balanced Accuracy curve/n for {train_val_test} dataset', fontsize=16)
     plt.legend(loc="center left", fontsize=12)
     
     if save_img:
-        plt.savefig(rf'images\report\4_results\ba_{train_val_test}_{model_type}_{spatial_temporal}.png', bbox_inches='tight', dpi=1000)
+        plt.savefig(rf'images/report/4_results/ba_{train_val_test}_{model_type}_{spatial_temporal}.png', bbox_inches='tight', dpi=1000)
         plt.show()
         plt.close()  # close the figure to free memory
     else:

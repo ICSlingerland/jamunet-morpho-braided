@@ -1,0 +1,29 @@
+name: runpod_braided
+channels:
+  - nvidia
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - ipykernel
+  - ipympl
+  - jupyterlab
+  - matplotlib>=3.4
+  - nodejs
+  - numpy
+  - pandas
+  - pip
+  - pytorch=2.5
+  - scikit-learn
+  - seaborn
+  - tqdm
+  - torchvision
+  - torchaudio
+  - cudatoolkit=11.8
+  - pip:
+      - opencv-python
+      - sympy
+      - overrides
+      - torchinfo
+      - types-python-dateutil

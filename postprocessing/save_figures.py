@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 from preprocessing.images_analysis import show_image_array  
 
-def save_image_figure(fig, folder=None, output_name=None, output_path=r'images\report', dpi=600, format='png',
+def save_image_figure(fig, folder=None, output_name=None, output_path=r'images/report', dpi=600, format='png',
                       cmap='gray', vmin=0, vmax=2): 
     '''
     Save the figure to the specified path. If `folder` and/or `output_name` are not specified it raises an Exception. 
@@ -18,7 +18,7 @@ def save_image_figure(fig, folder=None, output_name=None, output_path=r'images\r
            output_name = str, name used for the image to be saved
                          default: None, if not set an Exception is raised
            output_path = str, general path where image is saved
-                         default: r'images\report'
+                         default: r'images/report'
            dpi = int, dots per inch, i.e., image resolution
                  default: 600
            format = str, format for the image to be saved

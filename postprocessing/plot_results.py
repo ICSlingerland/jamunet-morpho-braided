@@ -31,7 +31,7 @@ def load_losses_metrics(path):
     df = pd.read_csv(path, header=0)
     return df
 
-def plot_losses(train_losses, validation_losses, model, loss_f='BCE', folder_save=r'postprocessing\losses', save_name=None, combined=False):
+def plot_losses(train_losses, validation_losses, model, loss_f='BCE', folder_save=r'postprocessing/losses', save_name=None, combined=False):
     '''
     Plot the training and validation losses. 
     
@@ -43,7 +43,7 @@ def plot_losses(train_losses, validation_losses, model, loss_f='BCE', folder_sav
                     default: 'BCE'. Other available options: 'BCE_Logits', 'Focal'
                     If other loss functions are set it raises an Exception
            folder_save = str, directory where losses plots are stored
-                         default: r'postprocessing\losses'
+                         default: r'postprocessing/losses'
            save_name = str, name for saving losses plot
                        default: None, in this case a warning message is printed, otherwise a *.png image is exported
            combined = bool, sets whether the function is used in combination with `plot_metrics` to combine both plots.
@@ -82,7 +82,7 @@ def plot_losses(train_losses, validation_losses, model, loss_f='BCE', folder_sav
 
     return None
 
-def plot_metrics(metrics, model, water_threshold=0.5, folder_save=r'postprocessing\metrics', save_name=None, combined=False):
+def plot_metrics(metrics, model, water_threshold=0.5, folder_save=r'postprocessing/metrics', save_name=None, combined=False):
     '''
     Plot validation metrics (accuracy, precision, recall, F1-score, and CSI).
     
@@ -92,7 +92,7 @@ def plot_metrics(metrics, model, water_threshold=0.5, folder_save=r'postprocessi
            water_threshold = float, threshold for binary classification.
                              default: 0.5, accepted range 0-1 (excluded)
            folder_save = str, directory where plot is stored
-                         default: r'postprocessing\metrics'
+                         default: r'postprocessing/metrics'
            save_name = str, name for saving metrics plot
                        default: None, in this case a warning message is printed, otherwise a *.png image is exported
            combined = bool, sets whether the function is used in combination with `plot_metrics` to combine both plots.
@@ -140,7 +140,7 @@ def plot_metrics(metrics, model, water_threshold=0.5, folder_save=r'postprocessi
 
     return None
 
-def plot_losses_metrics(train_losses, validation_losses, metrics, model, loss_f='BCE', water_threshold=0.5, folder_save=r'images\report\4_results', save_name=None):
+def plot_losses_metrics(train_losses, validation_losses, metrics, model, loss_f='BCE', water_threshold=0.5, folder_save=r'images/report/4_results', save_name=None):
     '''
     Plot the training and validation losses and metrics.
     Combine single plots as two subplots (losses on the left, metrics on the right).
@@ -156,7 +156,7 @@ def plot_losses_metrics(train_losses, validation_losses, metrics, model, loss_f=
            water_threshold = float, threshold for binary classification.
                              default: 0.5, accepted range 0-1 (excluded)
            folder_save = str, directory where plot is saved
-                         default: r'images\report\4_results'
+                         default: r'images/report/4_results'
            save_name = str, name for saving losses plot
                        default: None, in this case a warning message is printed, otherwise a *.png image is exported
     
@@ -293,13 +293,13 @@ def show_evolution_nolegend(sample_img, dataset, model, nonwater=0, water=1, wat
     ax[1,3].tick_params(left=False)
 
     if spatial_temporal == 'spatial':
-        ax[1,0].set_title(f'Target year {year[sample_img]+4}\n', fontsize=13)
+        ax[1,0].set_title(f'Target year {year[sample_img]+4}/n', fontsize=13)
     else:
-        ax[1,0].set_title(f'Target year 2020\n', fontsize=13)
+        ax[1,0].set_title(f'Target year 2020/n', fontsize=13)
 
-    ax[1,1].set_title(f'Predicted image\n', fontsize=13)
-    ax[1,2].set_title(f'Misclassification map\n(prediction - target)', fontsize=13)
-    ax[1,3].set_title(f'Erosion and\n deposition areas', fontsize=13)
+    ax[1,1].set_title(f'Predicted image/n', fontsize=13)
+    ax[1,2].set_title(f'Misclassification map/n(prediction - target)', fontsize=13)
+    ax[1,3].set_title(f'Erosion and/n deposition areas', fontsize=13)
 
     for i in range(ax.shape[0]):
         for j in range(ax.shape[1]):
@@ -325,7 +325,7 @@ def show_evolution_nolegend(sample_img, dataset, model, nonwater=0, water=1, wat
     fig.subplots_adjust(wspace=0.1, hspace=0.2) #top=0.85, , bottom=0.15
 
     if save_img:
-        plt.savefig(rf'images\report\4_results\{loss_recall}_{spatial_temporal}\{train_val_test}{sample_img}_{loss_recall}_{spatial_temporal}.png', 
+        plt.savefig(rf'images/report/4_results/{loss_recall}_{spatial_temporal}/{train_val_test}{sample_img}_{loss_recall}_{spatial_temporal}.png', 
                     bbox_inches='tight', dpi=1000)
         plt.show()
         plt.close(fig)  # close the figure to free memory
@@ -440,7 +440,7 @@ def erosion_sites(model, dataset, sample, nonwater=0, water=1, water_threshold=0
     plt.tight_layout()
 
     if save_img:        
-        plt.savefig(rf'images\report\4_results\locations\{train_val_test}{sample}_{model_type}_{spatial_temporal}_loc.png', 
+        plt.savefig(rf'images/report/4_results/locations/{train_val_test}{sample}_{model_type}_{spatial_temporal}_loc.png', 
                     bbox_inches='tight', dpi=1000) 
         plt.show()
         plt.close(fig)  # close the figure to free memory
@@ -601,7 +601,7 @@ def total_losses_metrics_dataset(model, dataset, loss_f='BCE', nonwater=0, water
         avg_f1_scores = np.mean(f1_scores)
         avg_csi_scores = np.mean(csi_scores) 
         
-        print(f'Average metrics for test dataset using {model_type} model:\n\n\
+        print(f'Average metrics for test dataset using {model_type} model:\n\
 {loss_f} loss:          {avg_loss:.3e}\n\
 Accuracy:          {avg_accuracies:.3f}\n\
 Precision:         {avg_precisions:.3f}\n\
@@ -756,7 +756,7 @@ def plot_dataset_losses_metrics(model, dataset, loss_f='BCE', train_val_test='te
     axs[1].set_yticklabels([f'{tick:.1f}' for tick in yticks2], fontsize=15)
 
     if save_img:
-        plt.savefig(rf'images\report\4_results\loss_metrics_{train_val_test}_{model_type}_{spatial_temporal}.png', bbox_inches='tight', dpi=600)
+        plt.savefig(rf'images/report/4_results/loss_metrics_{train_val_test}_{model_type}_{spatial_temporal}.png', bbox_inches='tight', dpi=600)
         plt.show()
         plt.close(fig)  # close the figure to free memory
     else:
@@ -851,7 +851,7 @@ def box_plots(model, dataset, loss_f='BCE', nonwater=0, water=1, water_threshold
     plt.tight_layout()
 
     if save_img:
-        plt.savefig(rf'images\report\4_results\boxmetrics_{train_val_test}_{model_type}_{spatial_temporal}.png', bbox_inches='tight', dpi=1000)
+        plt.savefig(rf'images/report/4_results/boxmetrics_{train_val_test}_{model_type}_{spatial_temporal}.png', bbox_inches='tight', dpi=1000)
         plt.show()
         plt.close(fig)  # close the figure to free memory
     else:
@@ -947,7 +947,7 @@ def erosion_deposition_distribution(model, dataset, nonwater=0, water=1, water_t
         ax.tick_params(axis='both', labelsize=15)
 
     if save_img:
-        plt.savefig(rf'images\report\4_results\erdep_{train_val_test}_{model_type}_{spatial_temporal}.png', bbox_inches='tight', dpi=600)
+        plt.savefig(rf'images/report/4_results/erdep_{train_val_test}_{model_type}_{spatial_temporal}.png', bbox_inches='tight', dpi=600)
         plt.show()
         plt.close(fig)  # close the figure to free memory
     else:
@@ -1059,7 +1059,7 @@ def correlation_metrics(model, dataset, loss_f='BCE', nonwater=0, water=1, water
             ax.set_ylabel(ax.get_ylabel(), fontsize=16)
 
     if save_img:
-        plt.savefig(rf'images\report\4_results\correlation_metrics_{train_val_test}_{model_type}_{spatial_temporal}.png', bbox_inches='tight', dpi=1000)
+        plt.savefig(rf'images/report/4_results/correlation_metrics_{train_val_test}_{model_type}_{spatial_temporal}.png', bbox_inches='tight', dpi=1000)
         plt.show()
         plt.close()
     else:
@@ -1161,7 +1161,7 @@ def correlation_erdep(model, dataset, nonwater=0, water=1, water_threshold=0.5, 
             ax.set_ylabel(ax.get_ylabel(), fontsize=15)
     
     if save_img:
-        plt.savefig(rf'images\report\4_results\correlation_erdep_{train_val_test}_{model_type}_{spatial_temporal}.png', bbox_inches='tight', dpi=1000)
+        plt.savefig(rf'images/report/4_results/correlation_erdep_{train_val_test}_{model_type}_{spatial_temporal}.png', bbox_inches='tight', dpi=1000)
         plt.show()
         plt.close()
     else:
@@ -1215,11 +1215,11 @@ def metrics_thresholds(model, data_loader, loss_f='BCE', device='cuda:0', save_i
     plt.xticks(np.arange(0, 1.1, 0.10), fontsize=12)
     plt.yticks(np.arange(0, 1.1, 0.10), fontsize=12)
     formatted_best_thr = f'{best_thr:.3f}'
-    plt.annotate(f'Water threshold for\nmax F1-score: {formatted_best_thr}', xy=(0.505,0.75), fontsize=12, 
+    plt.annotate(f'Water threshold for/nmax F1-score: {formatted_best_thr}', xy=(0.505,0.75), fontsize=12, 
                  ha='center', bbox=dict(boxstyle="round,pad=0.3", edgecolor="black", facecolor="lightgray"))
     plt.legend(ncol=5, bbox_to_anchor=(0.1, 0.05), loc='lower left')
     if save_img:        
-        plt.savefig(rf'images\report\4_results\metrics_with_thresholds.png', 
+        plt.savefig(rf'images/report/4_results/metrics_with_thresholds.png', 
                     bbox_inches='tight', dpi=1000)
         plt.show()
         plt.close()  # close the figure to free memory

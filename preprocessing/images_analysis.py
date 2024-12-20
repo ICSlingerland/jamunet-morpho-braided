@@ -13,8 +13,8 @@ from datetime import datetime
 from PIL import Image, ImageOps
 
 # set file directories
-dir_orig = r'data\satellite\original' # original images
-dir_proc = r'data\satellite\preprocessed' # preprocesed images
+dir_orig = r'data/satellite/original' # original images
+dir_proc = r'data/satellite/preprocessed' # preprocesed images
 
 def load_image(file_path, tensor=True, show=False, cmap='gray', vmin=-1, vmax=1):
     '''
@@ -60,7 +60,7 @@ def load_image(file_path, tensor=True, show=False, cmap='gray', vmin=-1, vmax=1)
         if show==True:
             plt.imshow(array_img, cmap=cmap, vmin=vmin, vmax=vmax)
             # get year, month and day of image by splitting the path
-            year, month, day = file_path.split('\\')[-1].split('_')[:3]
+            year, month, day = file_path.split('/')[-1].split('_')[:3]
             plt.title(f'{year}-{month}-{day}')
             plt.show()
 
@@ -117,7 +117,7 @@ def show_image_array(path, scaled_classes=True, cmap='gray', vmin=0, vmax=2, sho
     fig, ax = plt.subplots(figsize=(6,6))
     ax.imshow(img_array, cmap=cmap, vmin=vmin, vmax=vmax)
     # get year, month and day of image by splitting the path
-    year, month, day = path.split('\\')[-1].split('_')[:3]
+    year, month, day = path.split('/')[-1].split('_')[:3]
     ax.arrow(100, 125, 0, 200, width=10, facecolor='black', edgecolor='white')
     ax.set_title(f'{year}-{month}-{day}')
     ax.axis('on')  # ensure the axis is on
@@ -142,7 +142,7 @@ def show_image_array(path, scaled_classes=True, cmap='gray', vmin=0, vmax=2, sho
 
     return img_array, fig, ax if save_img else img_array
 
-def load_all_csv(train_val_test, cols=['Date image', 'no-data: 0', 'non-water: 1', 'water: 2'], dir_folders=r'data\satellite\preprocessed', index_col=None):
+def load_all_csv(train_val_test, cols=['Date image', 'no-data: 0', 'non-water: 1', 'water: 2'], dir_folders=r'data/satellite/preprocessed', index_col=None):
     '''
     This function is used to load all `*.csv` files containing info on the pixel classes distribution of JRC collection images.
     It creates a list of dataframes, one for every reach.
@@ -153,7 +153,7 @@ def load_all_csv(train_val_test, cols=['Date image', 'no-data: 0', 'non-water: 1
            cols = list of str, contains the name of columns to be loaded 
                   default: ['Date image', 'no-data: 0', 'non-water: 1', 'water: 2']
            dir_folders = str, directory where folders are stored
-                         default: r'data\satellite\preprocessed'
+                         default: r'data/satellite/preprocessed'
            index_col = int or None, sets the column which is used as index for the new dataframe.
                        default: None, no column used as index. Index becomes the total count of images.
                        Other available options: 1, if 'Date image' column is used as index. Not recommended to avoid confusion 
@@ -187,7 +187,7 @@ def load_all_csv(train_val_test, cols=['Date image', 'no-data: 0', 'non-water: 1
                 dfs.append(df)
     return dfs
 
-def create_long_df(train_val_test, cols=['Date image', 'no-data: 0', 'non-water: 1', 'water: 2'], dir_folders=r'data\satellite\preprocessed'):
+def create_long_df(train_val_test, cols=['Date image', 'no-data: 0', 'non-water: 1', 'water: 2'], dir_folders=r'data/satellite/preprocessed'):
     '''
     This function is used to create a complete dataframe for a given image use (training, validation and testing) with all reaches. 
     It contains the complete info on the pixel classes distribution of JRC collection images.
@@ -199,7 +199,7 @@ def create_long_df(train_val_test, cols=['Date image', 'no-data: 0', 'non-water:
            cols = list of str, contains the name of columns to be loaded 
                   default: ['Date image', 'no-data: 0', 'non-water: 1', 'water: 2']
            dir_folders = str, directory where folders are stored
-                         default: r'data\satellite\preprocessed'
+                         default: r'data/satellite/preprocessed'
     
     Output: 
            df = dataframe, contains all pixel classes values among years and reaches given the use (training, validation and testing)
@@ -266,7 +266,7 @@ Images usable (no-data pixels threshold = {cloud_thr}): {ok}.')
     return None
 
 def clear_full_df(train_val_test, nodata_thr, water_thr, cols=['Date image', 'no-data: 0', 'non-water: 1', 'water: 2'], 
-             dir_folders = r'data\satellite\preprocessed', dir_output = r'cleared_csv'):
+             dir_folders = r'data/satellite/preprocessed', dir_output = r'cleared_csv'):
     '''
     This function is used to select all images that respect the given amount of pixels data threshold (no-data max value and water min value).
     It slices through the input dataframe and gets rid of all images that do not comply with the requirements.
@@ -280,7 +280,7 @@ def clear_full_df(train_val_test, nodata_thr, water_thr, cols=['Date image', 'no
            cols = list of str, contains the name of columns to be loaded 
                   default: ['Date image', 'no-data: 0', 'non-water: 1', 'water: 2']
            dir_folders = str, dirtectory where the original .csv files are stored
-                        default: r'data\satellite\preprocessed'
+                        default: r'data/satellite/preprocessed'
            dir_output = str, contains directory where the new .csv files gets saved 
                         default: r'cleared_csv'
 
@@ -298,7 +298,7 @@ def clear_full_df(train_val_test, nodata_thr, water_thr, cols=['Date image', 'no
     clean_df.to_csv(output_path)
     return clean_df
 
-def clear_single_df(train_val_test, nodata_thr, water_thr, dir_folders = r'data\satellite\preprocessed'):
+def clear_single_df(train_val_test, nodata_thr, water_thr, dir_folders = r'data/satellite/preprocessed'):
     '''
     This function removes the images that do not meet the requirements (no-data and water max/min pixels) from the original dataframe, which contains all images.
     It then saves the remaining images on another *.csv file in the same directory.
@@ -312,7 +312,7 @@ def clear_single_df(train_val_test, nodata_thr, water_thr, dir_folders = r'data\
            nodata_thr = int, max acceptable amount of no-data pixels 
            water_thr = int, max acceptable amount of water pixels
            dir_folders = str, dirtectory where the original .csv files are stored
-                        default: r'data\satellite\preprocessed'
+                        default: r'data/satellite/preprocessed'
     
     Output: 
            none, it creates a *.csv file with information on the available images given no-data and water thresholds 
@@ -345,7 +345,7 @@ def clear_single_df(train_val_test, nodata_thr, water_thr, dir_folders = r'data\
                 clean_df.to_csv(output_path)
     return None
 
-def compute_diff(train_val_test, reach_id, dir_folders = r'data\satellite\preprocessed', collection = r'JRC_GSW1_4_MonthlyHistory'):
+def compute_diff(train_val_test, reach_id, dir_folders = r'data/satellite/preprocessed', collection = r'JRC_GSW1_4_MonthlyHistory'):
     '''
     This function loads all images of a specified folder (use and reach id), computes the difference between one image and the following one 
     considering only those values that are either -1 or 1 and counts all these different pixels and returns a dataframe containing for each combination 
@@ -363,7 +363,7 @@ def compute_diff(train_val_test, reach_id, dir_folders = r'data\satellite\prepro
                    default: 1, applies for both validation and testing.
                    For training, the available range is 1-28 (included)
            dir_folders = str, dirtectory where the original .csv files are stored
-                         default: r'data\satellite\preprocessed'
+                         default: r'data/satellite/preprocessed'
            collection = str, specifies the satellite images collection.
                        default: r'JRC_GSW1_4_MonthlyHistory', the function is implemented to work only with this dataset
     
@@ -577,7 +577,7 @@ def assign_group(df, monsoon_start=5, monsoon_end=10):
     
     return df
 
-def load_df_countpixels(train_val_test, reach_id, monsoon_start=None, monsoon_end=None, single_month=None, dir_folders = r'data\satellite\preprocessed', 
+def load_df_countpixels(train_val_test, reach_id, monsoon_start=None, monsoon_end=None, single_month=None, dir_folders = r'data/satellite/preprocessed', 
                         collection = r'JRC_GSW1_4_MonthlyHistory', cols = ['Date image', 'no-data: 0', 'non-water: 1', 'water: 2']):
     '''
     This function loads the .csv file of a given use and reach. It creates a dataframe with the info of the .csv file (date and tot pixels per class)
@@ -602,7 +602,7 @@ def load_df_countpixels(train_val_test, reach_id, monsoon_start=None, monsoon_en
                                    to the model and also don't allow a clear recognition of morphological features. 
                                    Therefore, the suggested values are between `single_month=1` and `single_month=4`. 
            dir_folders = str, directory where folders are stored
-                         default: r'data\satellite\preprocessed'
+                         default: r'data/satellite/preprocessed'
            collection = str, specifies the satellite images collection.
                         default: r'JRC_GSW1_4_MonthlyHistory', the function is implemented to work only with this dataset
            cols = list of str, contains the name of columns to be loaded 
@@ -665,7 +665,7 @@ def best_by_group(df, col_group = 'Group', col_min = 'no-data: 0'):
     return sorted_best
 
 def imgs_for_dataset(train_val_test, reach_id, monsoon_start=None, monsoon_end=None, single_month=None, 
-                     dir_folders = r'data\satellite\preprocessed', collection = r'JRC_GSW1_4_MonthlyHistory', 
+                     dir_folders = r'data/satellite/preprocessed', collection = r'JRC_GSW1_4_MonthlyHistory', 
                      cols = ['Date image', 'no-data: 0', 'non-water: 1', 'water: 2'], col_group = 'Group', 
                      col_min = 'no-data: 0'):
     '''
@@ -692,7 +692,7 @@ def imgs_for_dataset(train_val_test, reach_id, monsoon_start=None, monsoon_end=N
                                    to the model and also don't allow a clear recognition of morphological features. 
                                    Therefore, the suggested values are between `single_month=1` and `single_month=4`. 
            dir_folders = str, directory where folders are stored
-                         default: r'data\satellite\preprocessed'
+                         default: r'data/satellite/preprocessed'
            collection = str, specifies the satellite images collection.
                         default: r'JRC_GSW1_4_MonthlyHistory', the function is implemented to work only with this dataset
            cols = list of str, contains the name of columns to be loaded 
@@ -716,8 +716,8 @@ def imgs_for_dataset(train_val_test, reach_id, monsoon_start=None, monsoon_end=N
 
     return best_images 
 
-def copy_images(train_val_test, reach_id,  monsoon_start=None, monsoon_end=None, single_month=None, dir_folders = r'data\satellite\preprocessed', 
-                dir_dest = r'data\satellite\dataset', collection = r'JRC_GSW1_4_MonthlyHistory', 
+def copy_images(train_val_test, reach_id,  monsoon_start=None, monsoon_end=None, single_month=None, dir_folders = r'data/satellite/preprocessed', 
+                dir_dest = r'data/satellite/dataset', collection = r'JRC_GSW1_4_MonthlyHistory', 
                 cols = ['Date image', 'no-data: 0', 'non-water: 1', 'water: 2'], col_group = 'Group', col_min = 'no-data: 0'):
     '''
     This function copies the best images of each reach considering the non-monsoon season or the specific month (depending on the arguments specified, 
@@ -743,9 +743,9 @@ def copy_images(train_val_test, reach_id,  monsoon_start=None, monsoon_end=None,
                                    to the model and also don't allow a clear recognition of morphological features. 
                                    Therefore, the suggested values are between `single_month=1` and `single_month=4`. 
            dir_folders = str, directory where folders are stored
-                         default: r'data\satellite\preprocessed'
+                         default: r'data/satellite/preprocessed'
            dir_dest = str, destination directory where best images are stored.
-                      default: r'data\satellite\dataset'  
+                      default: r'data/satellite/dataset'  
            collection = str, specifies the satellite images collection.
                         default: r'JRC_GSW1_4_MonthlyHistory', the function is implemented to work only with this dataset
            cols = list of str, contains the name of columns to be loaded 

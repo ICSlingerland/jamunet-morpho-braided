@@ -29,3 +29,4 @@ dependencies:
   - torchinfo=1.8.0
   - torchvision
   - tqdm=4.66.1
+  - opencv

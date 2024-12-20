@@ -19,8 +19,8 @@ from preprocessing.images_analysis import show_image_array
 pd.options.mode.chained_assignment = None
 
 # set file directory
-dir_orig = r'data\satellite\original' # original images
-dir_proc = r'data\satellite\preprocessed' # preprocesed images
+dir_orig = r'data/satellite/original' # original images
+dir_proc = r'data/satellite/preprocessed' # preprocesed images
 
 def get_path_images(path, collection, train_val_test, year, month, day = 1, reach=1):
     '''
@@ -52,13 +52,13 @@ def get_path_images(path, collection, train_val_test, year, month, day = 1, reac
         day = f'0{day}'
     
     if train_val_test is not None and reach is not None:
-        file_path = path + fr'\{collection}_{train_val_test}_r{reach}\{year}_{month}_{day}_{train_val_test}_r{reach}.tif' 
+        file_path = path + fr'/{collection}_{train_val_test}_r{reach}/{year}_{month}_{day}_{train_val_test}_r{reach}.tif' 
     else:
-        file_path = path + fr'\{collection}\{year}_{month}_{day}.tif' 
+        file_path = path + fr'/{collection}/{year}_{month}_{day}.tif' 
     
     return file_path
 
-def rename_images(collection, train_val_test, reach=1, dir=r'data\satellite\original'):
+def rename_images(collection, train_val_test, reach=1, dir=r'data/satellite/original'):
     ''' 
     Rename the raw satellite image files for a given collection and usage of the images (training, validation, or testing) after being downloaded from Google Drive.
     Replace dashes with underscore digits and remove the collection name from the file name.
@@ -77,8 +77,8 @@ def rename_images(collection, train_val_test, reach=1, dir=r'data\satellite\orig
                    For training, the available range is 1-28 (included). 
                    For validation and testing there is only 1 reach
            dir = str, sets the directory where files are stored.
-                 default: r'data\satellite\original', contains original (not preprocessed) images
-                 other option: r'data\satellite\preprocessed' 
+                 default: r'data/satellite/original', contains original (not preprocessed) images
+                 other option: r'data/satellite/preprocessed' 
     
     Output: 
            none, rename all files by removing the collection name and replacing dashes with underscores
@@ -95,7 +95,7 @@ def rename_images(collection, train_val_test, reach=1, dir=r'data\satellite\orig
         if filename.endswith('.tif'):
 
             if collection not in filename:
-                raise Exception(f'There is no "{collection}" in the filenames: {filename}.\nCheck the directory, collection or use.') 
+                raise Exception(f'There is no "{collection}" in the filenames: {filename}./nCheck the directory, collection or use.') 
 
             # remove collection name from the file name
             _, date_with_extension = filename.split(collection + r'_', 1)
@@ -109,7 +109,7 @@ def rename_images(collection, train_val_test, reach=1, dir=r'data\satellite\orig
             
     return None
 
-def list_paths(collection, train_val_test, reach=1, dir_orig=r'data\satellite\original'):
+def list_paths(collection, train_val_test, reach=1, dir_orig=r'data/satellite/original'):
     '''
     Create a list containing all the paths of the images stored in a specified folder.
 
@@ -124,8 +124,8 @@ def list_paths(collection, train_val_test, reach=1, dir_orig=r'data\satellite\or
                    For training, the available range is 1-28 (included). 
                    For validation and testing there is only 1 reach
            dir_orig = str, sets the directory where original files are stored.
-                      default: r'data\satellite\original', contains original (not preprocessed) images
-                      other option: r'data\satellite\preprocessed' 
+                      default: r'data/satellite/original', contains original (not preprocessed) images
+                      other option: r'data/satellite/preprocessed' 
     
     Output: 
            final_path = str, list of paths of the images given usage and reach
@@ -337,7 +337,7 @@ Or alternatively:\n\
 
     return tot_pixels
 
-def season_average(train_val_test, reach, year, dir_datasets=r'data\satellite', nodata=-1):
+def season_average(train_val_test, reach, year, dir_datasets=r'data/satellite', nodata=-1):
     '''
     Compute the average pixel values across a single low-flow season (from January to April of the same year).
     This is necessary for a later replacement of the `no-data` pixels, in order to ensure that images only have two classes
@@ -353,7 +353,7 @@ def season_average(train_val_test, reach, year, dir_datasets=r'data\satellite', 
                    For validation and testing there is only 1 reach
            year = int, year of the season to average. Available range: 1988-2021 (for JRC collection)
            dir_datasets = str, specifies directory where original images are stored
-                          default: r'data\satellite'
+                          default: r'data/satellite'
            nodata = int, represent pixel value for no-data class
                          default: -1, based on updated classes
                          If using the original classification, this should be set to 0
@@ -426,7 +426,7 @@ def replace_nan_with_neighbors_mean(image, window_size=15, replace_default=0):
 
     return neigh_image
 
-def get_good_avg(train_val_test, reach, year, dir_datasets=r'data\satellite', nodata=-1, window_size=15, replace_default=0):
+def get_good_avg(train_val_test, reach, year, dir_datasets=r'data/satellite', nodata=-1, window_size=15, replace_default=0):
     '''
     Binarise images by replacing `no data` pixels with the average value across the season. If the average is still of `no-data` class,
     a neighboouring average value is taken and replaced. If the neighboour average also does not return a value because all pixels within the window
@@ -441,7 +441,7 @@ def get_good_avg(train_val_test, reach, year, dir_datasets=r'data\satellite', no
                    For validation and testing there is only 1 reach
            year = int, year of the season to average. Available range: 1988-2021 (for JRC collection)
            dir_datasets = str, specifies directory where original images are stored
-                          default: r'data\satellite'
+                          default: r'data/satellite'
            nodata = int, represent pixel value for no-data class
                          default: -1, based on updated classes
                          If using the original classification, this should be set to 0
@@ -465,8 +465,8 @@ def get_good_avg(train_val_test, reach, year, dir_datasets=r'data\satellite', no
     # good_img = np.where(img == nodata, good_avg, img)
     return good_avg
 
-def export_good_avg(train_val_test, reach, years=[1988, 2021], dir_datasets=r'data\satellite', 
-                    dir_output=r'data\satellite\averages', nodata=-1, window_size=15, replace_default=0):
+def export_good_avg(train_val_test, reach, years=[1988, 2021], dir_datasets=r'data/satellite', 
+                    dir_output=r'data/satellite/averages', nodata=-1, window_size=15, replace_default=0):
     '''
     Save the average images of a specific reach as *.csv files for later replacing the input images for the model
 
@@ -479,9 +479,9 @@ def export_good_avg(train_val_test, reach, years=[1988, 2021], dir_datasets=r'da
            years = list of ints, contains first and last years of the seasons to be averaged. 
                    default: [1988-2021]
            dir_datasets = str, specifies directory where original images are stored
-                          default: r'data\satellite'
+                          default: r'data/satellite'
            dir_output = str, specifies directory where *.csv files are saved
-                        default: r'data\satellite\averages'
+                        default: r'data/satellite/averages'
            nodata = int, represent pixel value for no-data class
                          default: -1, based on updated classes
                          If using the original classification, this should be set to 0
@@ -516,7 +516,7 @@ def export_good_avg(train_val_test, reach, years=[1988, 2021], dir_datasets=r'da
         df.to_csv(output_path, index=False, header=False)
     return None
 
-def load_avg(train_val_test, reach, year, dir_averages=r'data\satellite\averages'):
+def load_avg(train_val_test, reach, year, dir_averages=r'data/satellite/averages'):
     ''''
     Load the average image of a given year saved as *.csv file 
 
@@ -528,7 +528,7 @@ def load_avg(train_val_test, reach, year, dir_averages=r'data\satellite\averages
                    For validation and testing there is only 1 reach
            year = int, year of the season to average. Available range: 1988-2021 (for JRC collection)
            dir_averages = str, specifies directory where *.csv files of the average images are stored
-                          default: r'data\satellite\averages' 
+                          default: r'data/satellite/averages' 
     
     Output:
            img = 2D np.array image representing season average image of the given year 
@@ -554,12 +554,12 @@ def get_path(collection, cloud_cov=100, old=False):
     '''
     if cloud_cov == 'None':
          cloud_cov = '_undefined'
-    file_path = fr'\total_images_cloud{cloud_cov}' + r'/' + collection.replace('/', '_')  + fr'_chart_data_cloud{cloud_cov}' + '.csv'
+    file_path = fr'/total_images_cloud{cloud_cov}' + r'/' + collection.replace('/', '_')  + fr'_chart_data_cloud{cloud_cov}' + '.csv'
     if old==True:
-         file_path = r'\old\ee-chart_' + collection.replace('/', '_') + '.csv'
+         file_path = r'/old/ee-chart_' + collection.replace('/', '_') + '.csv'
     return file_path
 
-def load_df(collection, cloud_cov=100, dir_files=r'data\satellite\original', print_total=True, old=False):
+def load_df(collection, cloud_cov=100, dir_files=r'data/satellite/original', print_total=True, old=False):
     '''
     Load the .csv file containing information on images available for the given dataset.
 
@@ -568,7 +568,7 @@ def load_df(collection, cloud_cov=100, dir_files=r'data\satellite\original', pri
            cloud_cov = int, specifies max percentage of cloud cover above which images are discarded. 
                        default: 100, if set to 'None' cloud coverage is undefined and all images are considered
            dir_files = str, directory of the general folder containing all .csv files
-                       default: 'data\satellite\original' 
+                       default: 'data/satellite/original' 
            print_total = bool, specifies whether to print total number of imagse available or not
                          default: True, set to False for plot functions
            old = boolean, specifies whether old charts are loaded - a different name was given to the files
@@ -605,7 +605,7 @@ def load_df(collection, cloud_cov=100, dir_files=r'data\satellite\original', pri
     df['Delta t'].iloc[0] = 0
 
     if print_total == True:
-        print(f"Total number of images for {collection}: {df['Cumulative count'].iloc[-1]}\n")
+        print(f"Total number of images for {collection}: {df['Cumulative count'].iloc[-1]}/n")
     df
     return df
 
